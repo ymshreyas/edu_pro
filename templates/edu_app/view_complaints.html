@@ -1,0 +1,62 @@
+{% extends "edu_app/base.html" %}
+{% block body_block %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Complaints</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+    .container{
+        margin-top: 25px;
+        margin-bottom: 25px;
+        padding: 20px 40px 10px;
+        background-color: rgba(255, 255, 255, 0.8);
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        opacity: 3.8;
+        word-wrap: break-word;
+
+    }
+    .complaints-header {
+        background-color: #007bff; 
+        color: #fff; 
+        font-size: 24px;
+        padding: 10px;
+        text-align: center;
+    }
+    </style>
+</head>
+<body>
+    <div class="complaints-header">
+    <h2>View Complaints</h2>
+    </div>
+    <br>
+    <div class="container">
+    <div class="row">
+    {% for i in comp %}
+    {% if i.name == "" %}
+    <div class="container">
+        <p><strong>Name:</strong>&nbsp(Anonymous)</p>
+        <p><strong>USN:</strong>&nbsp-</p>
+        <p><strong>Faculty Name:&nbsp</strong>{{i.faculty_name}}</p>
+        <p><strong>Department:&nbsp</strong>{{i.department}}</p>
+        <p><strong>Complaint:&nbsp</strong>{{i.complaint}}</p>
+    </div>
+    {% else %}
+    <div class="jumbotron">
+        <p><strong>Name:</strong>&nbsp{{i.name}}</p>
+        <p><strong>USN:</strong>&nbsp{{i.usn}}</p>
+        <p><strong>Faculty Name:&nbsp</strong>{{i.faculty_name}}</p>
+        <p><strong>Department:&nbsp</strong>{{i.department}}</p>
+        <p><strong>Complaint:&nbsp</strong>&nbsp{{i.complaint}}</p>
+    {% endif %}
+    </div>
+<br>
+    {% endfor %}
+</div>
+</div>
+</div>
+</body>
+</body>
+{% endblock %}
+

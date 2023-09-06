@@ -1,0 +1,153 @@
+{% extends "edu_app/base.html" %}
+{% block body_block %}
+<head>
+  <title>Student Page</title>
+  <style>
+    body{
+    background-color: #7E57C2;
+  }
+  header {
+    background-color: #007bff;
+    color:  #fff;
+    padding: 15px;
+    text-align: center;
+  }
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        margin-top: 90px;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 10px;
+        opacity: 1;
+    }
+    .container h2 {
+        text-align: center;
+        margin-bottom: 0px;
+    }
+    .container {
+        background-color: rgba(255, 255, 255, 0.9);
+        border-color: #ccc;
+    }
+    .img-thumbnail {
+      float: left;
+          width: 40%;
+          height: 80%;
+        }
+  </style>
+  <body class="heading">
+    <header>
+      <h2>Student Portal</h2>
+    </header>
+</body>
+</head>
+  <body>
+    <nav class="navbar bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Edu Pro</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Options</h5>
+        <button type="button" class="btn-close btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'notifications' %}" target="_blank">Notification</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'view_attendance' %}" target="_blank">Attendance</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'payments' %}" target="_blank">Payments</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'complaints' %}" target="_blank">Complaints</a>
+          </li>
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'user_logout' %}">Logout</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'user_login' %}">Login</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+        <div class="container">
+          <div class="row d-flex justify-content-center mt-100">
+            <div class="col-md-4">
+              <br>
+              {% for stud in studs %}
+              <img src={{stud.student_profile_pic.url}} class="img-thumbnail"alt="">
+              {% endfor %}
+            </div>
+            <div class="col-md-4"><br>
+              {% for stud in studs %}
+                <h1>{{stud.Name}}</h1>
+                <h4>{{stud.username}}</h4>
+                <h4>{{stud.Branch}}</h4>
+              {% endfor %}
+            </div>   
+          </div>
+        </div><br><br>
+        <div class="col-lg-12 col-md-6 col-sm-4 container"><canvas id="myChart"></canvas></div>
+         <script class="col-lg-12 col-md-6 col-sm-4 container">
+                const ctx = document.getElementById('myChart');
+                new Chart(ctx, {
+                  type: 'bar',
+                  data: {
+                    labels: [{% for plt in plot %}'{{plt.sub_1_code}}','{{plt.sub_2_code}}','{{plt.sub_3_code}}','{{plt.sub_4_code}}','{{plt.sub_5_code}}','{{plt.sub_6_code}}',{% endfor %}],
+                    datasets: [{
+                      label: 'CIA Marks',
+                      data: [{% for plt in plot %}'{{plt.sub_1}}','{{plt.sub_2}}','{{plt.sub_3}}','{{plt.sub_4}}','{{plt.sub_5}}','{{plt.sub_6}}',{% endfor %}],
+                      backgroundColor: [
+                      'rgba(255, 99, 132, 0.8)',
+                      'rgba(54, 162, 235, 0.8)',
+                      'rgba(255, 206, 86, 0.8)',
+                      'rgba(75, 192, 192, 0.8)',
+                      'rgba(153, 102, 255, 0.8)',
+                      'rgba(255, 159, 64, 0.8)',
+                      ],
+                      borderWidth: 1
+                    }]
+                  },
+                  options: {
+                    scales: {
+                      y: {
+                        beginAtZero: true,
+                        ticks: {
+                        color: 'black', // Change the color of the Y-axis labels to blue
+                        },
+                      },
+                      x: {
+                        ticks: {
+                          color: 'black', // Change the color of the X-axis labels to red
+                        },
+                      },
+                    },
+                    plugins:{
+                      legend: {
+                        labels: {
+                          color: 'black', // Change the legend text color to green
+                        },
+                      },
+                    }
+                  }
+                });
+              </script>
+      <br>
+</body>
+{% endblock %}

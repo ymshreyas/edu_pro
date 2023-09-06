@@ -1,0 +1,81 @@
+{% extends "edu_app/base.html" %}
+{% block body_block %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System - Complaints Portal</title>
+    <style>
+        .container{
+            margin: 0 auto;
+            margin-top: 25px;
+            margin-bottom: 25px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            opacity: 3.8; /* Adjust the opacity value as per your preference */
+        }
+        .complaints-header {
+            background-color: #007bff; 
+            color: #fff; 
+            font-size: 24px;
+            padding: 10px;
+            text-align: center;
+        }
+        .form-group{
+            color:#fff
+          }
+    </style>
+</head>
+<body>
+    <div class="complaints-header">
+        <h2>Complaints Portal</h2>
+    </div>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{message}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div class="container">
+    <div class="container mt-5">
+        <form id="complaintForm" action="." method="post">
+            {% csrf_token %}
+            <div class="form-floating mb-3">
+                <input type="text" name="name" class="form-control" id="floatingInput" placeholder="">
+                <label for="floatingInput">Name(optional)</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" name="usn" class="form-control" id="floatingInput" placeholder="">
+                <label for="floatingInput">USN(optional)</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" name="faculty_name" class="form-control" id="floatingInput" required placeholder="">
+                <label for="floatingInput">Faculty Name</label>
+            </div>
+            <div class="input-group mb-3">
+                <select class="form-select" id="department" name="department" required>
+                  <option value="Computer Science and Engineering">Computer Science and engineering</option>
+                  <option value="Infromation Science and Engineering">Information Science and engineering</option>
+                  <option value="Artifical Intelligence and Machine Learning">Artifical Intelligence and machine learning</option>
+                  <option value="Electronics and Communication Engineering">Electronics and communication engineering</option>
+                  <option value="Electrical and Electronics Engineering">Electrical and Eletronics engineering</option>
+                  <option value="Mechanical Engineering">Mechanical engineering</option>
+                </select>
+                <label class="input-group-text" for="department">Department</label>
+            </div>
+            <div class="form-floating">
+                <textarea name="complaint" class="form-control" id="floatingInput" rows="5" required placeholder=""></textarea>
+                <label for="floatingTextarea">Enter your complaint here</label>
+            </div><br>
+            <button type="submit" class="btn btn-primary">Submit Complaint</button>
+        </form>
+    </div>
+    </div>
+</body>
+<div id="particles-js"></div>
+</body>
+{% endblock %}
+

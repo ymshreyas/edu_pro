@@ -1,0 +1,116 @@
+{% extends "edu_app/base.html" %}
+{% block body_block %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Record</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: "Times New Roman" , sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .container {
+            margin: 0 auto;
+            margin-top: 25px;
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            opacity: 3.8; /* Adjust the opacity value as per your preference */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <h2>Payment Record</h2>
+    </header>
+    <div class="container">
+        <table class="table text-center">
+            <thead>
+                <tr>
+                    <th>Particulars</th>
+                    <th>Payment Amount</th>
+                    <th>Payment Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in data %}
+                <tr>
+                    <td>{{i.particulars}}</td>
+                    <td>{{i.amount}}</td>
+                    <td>
+                        <span id="paymentStatus{{ forloop.counter }}">
+                            {% if i.is_paid %}
+                            Payment Successful
+                            {% else %}
+                            Payment Pending
+                            {% endif %}
+                        </span>
+                        <button class="btn btn-warning pay-now-btn"
+                            data-particulars="{{ i.particulars }}"
+                            data-amount="{{ i.amount }}"
+                            data-index="{{ forloop.counter }}"
+                            {% if i.is_paid %}disabled{% endif %}>
+                            Pay Now
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+      </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const payNowButtons = document.querySelectorAll(".pay-now-btn");
+
+            payNowButtons.forEach(function (button) {
+                const paymentStatus = document.getElementById(`paymentStatus${button.dataset.index}`);
+                const paymentKey = `paymentStatus${button.dataset.index}`;
+
+                if (localStorage.getItem(paymentKey) === "Payment Successful") {
+                    paymentStatus.textContent = "Payment Successful";
+                    button.disabled = true;
+                }
+
+                button.addEventListener("click", function () {
+                    paymentStatus.textContent = "Payment Successful";
+                    this.disabled = true;
+                    localStorage.setItem(paymentKey, "Payment Successful");
+                });
+            });
+        });
+    </script>
+</body>
+{% endblock %}

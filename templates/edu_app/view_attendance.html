@@ -1,0 +1,79 @@
+{% extends "edu_app/base.html" %}
+{% block body_block %}
+<head>
+    <title>Student Attendance</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <style>
+        table {
+            width: 50%;
+            margin: auto;
+            text-align: center;
+            background-color: white;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            color: black;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .container{
+            margin: 0 auto;
+            margin-top: 25px;
+            margin-bottom: 25px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            opacity: 3.8; /* Adjust the opacity value as per your preference */
+        }
+        .attendance-header {
+            background-color: #007bff; 
+            color: #fff; 
+            font-size: 24px;
+            padding: 10px;
+            text-align: center;
+        } 
+    </style>
+</head>
+<body>
+    <div class="attendance-header">
+        <h2>View Attendance Portal</h2>
+    </div>
+    <br>
+    <div class="container">
+        <div class="dropdown show">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Select Subject
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" >
+                {% for subject in subjects %}
+                    <a class="dropdown-item" href="?subject={{ subject }}">{{ subject }}</a>
+                {% endfor %}
+            </div>
+        </div>
+        <br>
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Attendance Status</th>
+                <th>From</th>
+                <th>To</th>
+            </tr>
+            {% for entry in attendance_data %}
+            <tr>
+                <td>{{ entry.date }}</td>
+                <td>{{ entry.status }}</td>
+                <td>{{ entry.start_time }}</td>
+                <td>{{ entry.end_time }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    
+</body>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends "edu_app/base.html" %}
+{% block body_block %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Notifications</title>
+    <style>
+        .complaints-header {
+            background-color: #007bff; 
+            color: #fff; 
+            font-size: 24px;
+            padding: 10px;
+            text-align: center;
+        }
+        .container {
+            /* max-width: 400px; */
+            margin: 0 auto;
+            margin-top: 25px;
+            margin-bottom: 25px;;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            opacity: 3.8; /* Adjust the opacity value as per your preference */
+        }
+    </style>
+</head>
+<body>
+    <div class="complaints-header">
+        <h2>Update Notifications</h2>
+    </div>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{message}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div class="container">
+    <div class="container mt-5">
+        <form id="Notificationform" action="." method="post">
+            {% csrf_token %}
+            <div class="form-floating mb-3">
+                <input type="text" name="caption" class="form-control" id="floatingInput" required>
+                <label for="floatingInput">Subject</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" name="type" class="form-control" id="floatingInput" required>
+                <label for="floatingInput">Type</label>
+            </div>
+            <div class="form-floating mb-3">
+                <textarea class="form-control" name="information" id="floatingTextarea" required></textarea>
+                 <label for="floatingTextarea">Information</label>
+            </div>
+            <div class="input-group mb-3">
+                <input type="date" class="form-control" id="date" name="date" required>
+                <label class="input-group-text" for="date">Date</label>
+            </div>
+            <div class="input-group mb-3">
+                <input type="number" class="form-control" id="semester" name="semester" required>
+                <label class="input-group-text" for="years_of_experience">Semester</label>
+            </div><br>
+            <button type="submit" class="btn btn-primary">Submit Notification</button>
+        </form>
+    </div>
+    </div>
+</body>
+<div id="particles-js"></div>
+</body>
+{% endblock %}
+

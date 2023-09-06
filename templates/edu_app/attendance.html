@@ -1,0 +1,128 @@
+{% extends "edu_app/base.html" %}
+{% block body_block %}
+<head>
+    <title>Update Attendance</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <style>
+        .container{
+            margin: 0 auto;
+            margin-top: 25px;
+            margin-bottom: 25px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            opacity: 3.8; /* Adjust the opacity value as per your preference */
+        }
+        table {
+            border-collapse: collapse;
+            width: 50%;
+            margin: auto;
+            text-align: center;
+            background-color: white;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            color: black;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .attendance-header {
+            background-color: #007bff; 
+            color: #fff; 
+            font-size: 24px;
+            padding: 10px;
+            text-align: center;
+        }
+        #submit_button{
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="attendance-header">
+        <h2>Update Attendance Portal</h2>
+    </div>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{message}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div class="container">
+        <div class="dropdown show">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownSemester" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
+                Select Semester
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownSemester" required>
+                <a class="dropdown-item" href="?semester=1&subject={{ selected_subject }}">Semester 1</a>
+                <a class="dropdown-item" href="?semester=2&subject={{ selected_subject }}">Semester 2</a>
+                <a class="dropdown-item" href="?semester=3&subject={{ selected_subject }}">Semester 3</a>
+                <a class="dropdown-item" href="?semester=4&subject={{ selected_subject }}">Semester 4</a>
+                <a class="dropdown-item" href="?semester=5&subject={{ selected_subject }}">Semester 5</a>
+                <a class="dropdown-item" href="?semester=6&subject={{ selected_subject }}">Semester 6</a>
+                <a class="dropdown-item" href="?semester=7&subject={{ selected_subject }}">Semester 7</a>
+                <a class="dropdown-item" href="?semester=8&subject={{ selected_subject }}">Semester 8</a>
+            </div>
+        </div>
+        <br>
+        <div class="dropdown show">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
+              Select Subject
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" required>
+              {% for subject in subjects %}
+                  <a class="dropdown-item" href="?semester={{selected_semester}}&subject={{ subject }}">{{ subject }}</a>
+              {% endfor %}
+            </div>
+        </div>
+        <form method="post" action="{% url 'take_attendance' %}?semester={{ selected_semester }}&subject={{ selected_subject }}">
+            {% csrf_token %}
+            <input type="hidden" name="selected_subject" value="{{ selected_subject }}">
+            <table>
+                <tr>
+                    <td colspan="2"><strong>Date: <span id="currentDate"></span></strong></td>
+                </tr>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Attendance</th>
+                </tr>
+                {% for student in student_list %}
+                <tr>
+                    <td>
+                        {{ student.Name }}
+                    </td>
+                    <td>
+                        <input type="checkbox" name="{{ student.username }}" checked>
+                        <input type="hidden" name="{{ student.username }}_checked" value="on">
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            <div class="form-group">
+                <label for="start_time">Start Time:</label>
+                <input type="time" class="form-control" id="start_time" name="start_time">
+            </div>
+            <div class="form-group">
+                <label for="end_time">End Time:</label>
+                <input type="time" class="form-control" id="end_time" name="end_time">
+            </div>
+            <button id="submit_button" type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    <script>
+        var currentDateElement = document.getElementById('currentDate');
+        var today = new Date();
+        var dateString = today.toDateString();
+        currentDateElement.textContent = dateString;
+    </script>
+</body>
+{% endblock %}
+

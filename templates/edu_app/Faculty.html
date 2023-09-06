@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Faculty Portal</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+    <style>
+      .heading {
+          /* font-family: Times New Roman , sans-serif; */
+          margin: 0;
+          padding: 0;
+      }
+      header {
+          background-color: #007bff;
+          color:  #fff;
+          padding: 15px;
+          text-align: center;
+      }
+      #particles-js {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: #5468FF;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: 50% 50%;
+        z-index: -1;
+      }
+      body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+      }
+      .container {
+          margin-top: 90px;
+          background-color: rgba(255, 255, 255, 0.8);
+          border-radius: 10px;
+          opacity: 1;
+      }
+      .container h2 {
+          text-align: center;
+          margin-bottom: 20px;
+      }
+      #particles-js {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: -1;
+      }
+
+      #particles-js canvas {
+          background-color: #003b46;
+      }
+
+      .container {
+          background-color: rgba(255, 255, 255, 0.9);
+          border-color: #ccc;
+      }
+
+      .img-thumbnail {
+        float: left;
+            width: 40%;
+            height: 80%;
+          }
+    </style>
+  </head>
+  <body class="heading">
+  <header>
+  <h2>Faculty Portal</h2>
+  </header>
+  </body>
+    <body>
+      <nav class="navbar bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">EduPro</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Options</h5>
+            <button type="button" class="btn-close btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'update_notification' %}" target="_blank">Notification</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'take_attendance' %}" target="_blank">Update Attendance</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'update_cie' %}" target="_blank">Update CIE Marks</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'view_complaints' %}" target="_blank">View Complaints</a>
+              </li>
+              {% if user.is_authenticated %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'user_logout' %}">Logout</a>
+                </li>
+              {% else %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'user_login' %}">Login</a>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row d-flex justify-content-center mt-100">
+        <div class="col-md-4">
+          <br>
+          {%for f in fact %}
+          <img src="{{f.profile_pic.url}}" class="img-thumbnail" alt=src="https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg">
+          {% endfor %}
+        </div>
+        <div class="col-md-4">
+          <br>
+          {% for f in fact %}
+            <h1>{{f.name}}</h1>
+            <h4>{{f.department}}</h4>
+            <h4>{{f.Designation}}</h4>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+  <div class="container col md-2 sm-4">
+  <ul class="nav nav-tabs mt-4" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <a class="nav-link active" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true">Profile</a>
+    </li>
+    <li class="nav-item" role="presentation">
+      <a class="nav-link" id="qualification-tab" data-bs-toggle="tab" href="#qualification" role="tab" aria-controls="qualification" aria-selected="false">Qualification</a>
+    </li>
+  </ul>
+  <div class="tab-content mt-4" id="myTabContent">
+    <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+      <h3>Profile</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Area of specialisation</th>
+            <th>Date of Joining</th>
+            <th>Email ID</th>
+            <th>Years of experience</th>
+            <th>Department</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for f in fact %}
+          <tr>
+            <td>{{f.specialisation}}</td>
+            <td>{{f.DOJ}}</td>
+            <td>{{f.email}}</td>
+            <td align="center">{{f.years_of_experience}}</td>
+            <td>{{f.department}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="qualification" role="tabpanel" aria-labelledby="qualification-tab">
+  <h3>Qualification</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Sl. No.</th>
+        <th>Degree</th>
+        <th>Institution</th>
+        <th>Year of Passing</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        {% for f in fact %}
+        <td>1</td>
+        <td>Bachelor's Degree : {{f.bachelor_degree}}</td>
+        <td>{{f.bachelor_instituition}}</td>
+        <td>{{f.bachelor_year}}</td>
+        {% endfor %}
+      </tr>
+      <tr>
+        {% for f in fact %}
+        <td>2</td>
+        <td>Master's Degree : {{f.Masters_degree}}</td>
+        <td>{{f.Masters_instituition}}</td>
+        <td>{{f.Masters_year}}</td>
+        {% endfor %}
+      </tr>
+      <tr>
+        {% for f in fact %}
+        <td>2</td>
+        <td>Doctor of philosophy : {{f.Phd}}</td>
+        <td>{{f.Phd_instituition}}</td>
+        <td>{{f.Phd_year}}</td>
+        {% endfor %}
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+</div>
+    <div id="particles-js"></div>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+    <script>
+      particlesJS('particles-js', {
+        particles: {
+          number: {
+            value: Math.floor(150*1.1),
+            density: {
+              enable: true,
+              value_area: 800
+            }
+          },
+          color: {
+            value: '#ffffff'
+          },
+          shape: {
+            type: 'triangle',
+            stroke: {
+              width: 0,
+              color: '#000000'
+            },
+            polygon: {
+              nb_sides: 5
+            }
+          },
+          opacity: {
+            value: 0.5,
+            random: false,
+            anim: {
+              enable: false,
+              speed: 1,
+              opacity_min: 0.1,
+              sync: false
+            }
+          },
+          size: {
+            value: 3,
+            random: true,
+            anim: {
+              enable: false,
+              speed: 40,
+              size_min: 0.1,
+              sync: false
+            }
+          },
+          line_linked: {
+            enable: true,
+            distance: 150,
+            color: '#5468FF',
+            opacity: 0.4,
+            width: 1
+          },
+          move: {
+            enable: true,
+            speed: 6,
+            direction: 'none',
+            random: false,
+            straight: false,
+            out_mode: 'out',
+            bounce: false,
+            attract: {
+              enable: false,
+              rotateX: 600,
+              rotateY: 1200
+            }
+          }
+        },
+        interactivity: {
+          detect_on: 'canvas',
+          events: {
+            onhover: {
+              enable: true,
+              mode: 'repulse'
+            },
+            onclick: {
+              enable: true,
+              mode: 'push'
+            },
+            resize: true
+          },
+          modes: {
+            grab: {
+              distance: 400,
+              line_linked: {
+                opacity: 1
+              }
+            },
+            bubble: {
+              distance: 400,
+              size: 40,
+              duration: 2,
+              opacity: 8,
+              speed: 3
+            },
+            repulse: {
+              distance: 200
+            },
+            push: {
+              particles_nb: 4
+            },
+            remove: {
+              particles_nb: 2
+            }
+          }
+        },
+        retina_detect: true
+      });
+    </script>
+  </body>
+</html>
+

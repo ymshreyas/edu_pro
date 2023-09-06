@@ -1,0 +1,90 @@
+{% extends 'edu_app/base.html' %}
+{% block body_block %}
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 400px;
+            border-radius: 20px;
+            margin: 0 auto;
+            margin-top: 100px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid #ccc;
+            opacity: 3.8; /* Adjust the opacity value as per your preference */
+        }
+        .container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .container input[type="text"],
+        .container input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: white;
+            opacity: 1;
+        }
+        .container input[type="submit"] {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            border-radius: 20px;
+        }
+        .container input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+{% if messages %}
+        {% for message in messages %}
+            <!-- <div class="container"> -->
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {{message}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <!-- </div> -->
+        {% endfor %}
+    {% endif %}
+<body>
+    <div id="particles-js"></div>
+    <div class="container">
+        <div class="jumbotron">
+            <h1 align="center">Please Login</h1><br>
+            <form method="POST" action="{% url 'user_login' %}">
+                {% csrf_token %}
+                <div class="form-floating">
+                    <input name='username' type="username" class="form-control" id="floatingInput" placeholder="Username" required>
+                    <label for="floatingPassword">Username</label>
+                </div><br>
+                <div class="form-floating">
+                    <input name='password' type="password" class="form-control" id="floatingPassword" placeholder="Password" required>
+                    <label for="floatingPassword">Password</label>
+                </div>
+                <div class="input-group mb-3">
+                    <select class="form-select" id="usertype" name="usertype" required>
+                      <option selected></option>
+                      <option value="1">Faculty</option>
+                      <option value="2">Student</option>
+                    </select>
+                    <label class="input-group-text" for="inputGroupSelect02">User_type</label>
+                  </div>
+                <input type="submit" class="btn btn-primary" value="Login">
+            </form>
+    </div>
+    
+</body>
+{% endblock %}
+
+    

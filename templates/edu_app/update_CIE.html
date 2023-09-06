@@ -1,0 +1,121 @@
+{% extends "edu_app/base.html" %}
+{% block body_block %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System - Complaints Portal</title>
+    <style>
+        .container{
+            margin: 0 auto;
+            margin-top: 25px;
+            margin-bottom: 25px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            opacity: 3.8; /* Adjust the opacity value as per your preference */
+        }
+        .complaints-header {
+            background-color: #007bff; 
+            color: #fff; 
+            font-size: 24px;
+            padding: 10px;
+            text-align: center;
+        }
+        .form-group{
+            color:#fff
+          }
+    </style>
+</head>
+<body>
+    <div class="complaints-header">
+        <h2>Update CIE</h2>
+    </div>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{message}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div class="container">
+    <div class="container mt-5">
+        <form id="update_cie_form" action="." method="post">
+            {% csrf_token %}
+            <div class="form-floating mb-3">
+                <input type="text" name="usn" class="form-control" id="floatingInput" required>
+                <label for="floatingInput">USN</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" name="semester" class="form-control" id="floatingInput" required>
+                <label for="floatingInput">Semester</label>
+            </div>
+            <div class="input-group mb-3">
+                <select class="form-select" id="Branch" name="Branch" required>
+                  <option value="Computer Science and Engineering">Computer Science and engineering</option>
+                  <option value="Infromation Science and Engineering">Information Science and engineering</option>
+                  <option value="Artifical Intelligence and Machine Learning">Artifical Intelligence and machine learning</option>
+                  <option value="Electronics and Communication Engineering">Electronics and communication engineering</option>
+                  <option value="Electrical and Electronics Engineering">Electrical and Eletronics engineering</option>
+                  <option value="Mechanical Engineering">Mechanical engineering</option>
+                </select>
+                <label class="input-group-text" for="Branch">Branch</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" name="sub_1_code" class="form-control" id="floatingInput" required>
+                <label for="floatingInput">Subject 1 Code</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="number" name="sub_1" class="form-control" id="floatingInput" required>
+                <label for="floatingInput">Marks</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" name="sub_2_code" class="form-control" id="floatingInput" required>
+                <label for="floatingInput">Subject 2 Code</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="number" name="sub_2" class="form-control" id="floatingInput" required>
+                <label for="floatingInput">Marks</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" name="sub_3_code" class="form-control" id="floatingInput" required>
+                <label for="floatingInput">Subject 3 Code</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="number" name="sub_3" class="form-control" id="floatingInput" required>
+                <label for="floatingInput">Marks</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" name="sub_4_code" class="form-control" id="floatingInput" required>
+                <label for="floatingInput">Subject 4 Code</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="number" name="sub_4" class="form-control" id="floatingInput" required>
+                <label for="floatingInput">Marks</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" name="sub_5_code" class="form-control" id="floatingInput" required>
+                <label for="floatingInput">Subject 5 Code</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="number" name="sub_5" class="form-control" id="floatingInput" required>
+                <label for="floatingInput">Marks</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" name="sub_6_code" class="form-control" id="floatingInput" required>
+                <label for="floatingInput">Subject 6 Code</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="number" name="sub_6" class="form-control" id="floatingInput" required>
+                <label for="floatingInput">Marks</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Update CIE</button>
+        </form>
+    </div>
+    </div>
+</body>
+<div id="particles-js"></div>
+</body>
+{% endblock %}
+

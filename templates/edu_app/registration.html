@@ -1,0 +1,169 @@
+{% extends "edu_app/base.html" %}
+{% block body_block %}
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1200px;
+            /* max-height: 2000px; */
+            margin: 0 auto;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            opacity: 3.8; /* Adjust the opacity value as per your preference */
+        }
+
+        .container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .container input[type="text"],
+        .container input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: white;
+            opacity: 1;
+        }
+        .container input[type="submit"] {
+            width: 50%;
+            margin-left: 25%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        .container input[type="submit"]:hover{
+            width: 50%;
+            margin-left: 25%;
+            background-color: #3e9741;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }    
+    </style>
+</head>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{message}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+<body>
+    <div id="particles-js"></div>
+    <div class="container">
+        {% if registered %}
+            <h1 align="center">THANK YOU FOR REGISTERING</h1>
+            <h2>You will be notified soon after we activate your account</h2>
+            <h2>You may close this tab</h2>
+        {% else %}
+            <h1 align = 'center'>Register here</h1><br>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-floating">
+                    <input name='username' type="username" class="form-control" id="floatingInput" placeholder="Username" required>
+                    <label for="floatingPassword">Username</label>
+                </div><br>
+                <div class="form-floating">
+                    <input name='name' type="name" class="form-control" id="floatingInput" placeholder="Name" required>
+                    <label for="floatingPassword">Name</label>
+                </div><br>
+                <div class="form-floating mb-3">
+                    <input name='email' type="email" class="form-control" id="floatingInput" placeholder="name@example.com" required>
+                    <label for="floatingInput">Email address</label>
+                </div>
+                <div class="form-floating">
+                    <input name='password' type="password" class="form-control" id="floatingPassword" placeholder="Password" required>
+                    <label for="floatingPassword">Password</label>
+                </div>
+                <div class="form-floating">
+                    <input name='Designation' type="Designation" class="form-control" id="floatingInput" placeholder="Designation" required>
+                    <label for="floatingInput">Designation</label>
+                </div><br>
+                <div class="input-group mb-3">
+                    <input type="file" class="form-control" id="profile_pic" name="profile_pic" required>
+                    <label class="input-group-text" for="profile_pic">Profile_pic</label>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="number" class="form-control" id="years_of_experience" name="years_of_experience" required>
+                    <label class="input-group-text" for="years_of_experience">Years Of Experience</label>
+                </div>
+                <div class="input-group mb-3">
+                    <select class="form-select" id="department" name="department" required>
+                      <option value="Computer Science and Engineering">Computer Science and engineering</option>
+                      <option value="Infromation Science and Engineering">Information Science and engineering</option>
+                      <option value="Artifical Intelligence and Machine Learning">Artifical Intelligence and machine learning</option>
+                      <option value="Electronics and Communication Engineering">Electronics and communication engineering</option>
+                      <option value="Electrical and Electronics Engineering">Electrical and Eletronics engineering</option>
+                      <option value="Mechanical Engineering">Mechanical engineering</option>
+                    </select>
+                    <label class="input-group-text" for="department">Department</label>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="date" class="form-control" id="DOJ" name="DOJ" required>
+                    <label class="input-group-text" for="DOJ">Date of joining</label>
+                </div>
+                <div class="form-floating">
+                    <input name="specialisation" type="text" class="form-control" id="floatingInput" placeholder="Specialisation" required>
+                    <label for="floatingInput">Specialisation</label>
+                </div>
+                <div class="form-floating">
+                    <input name="bachelor_degree" type="text" class="form-control" id="floatingInput" placeholder="Bachlelor's Degree" required>
+                    <label for="floatingInput">Bachlelor's Degree</label>
+                </div>
+                <div class="form-floating">
+                    <input name="bachelor_instituition" type="text" class="form-control" id="floatingInput" placeholder="Instituition Name" required>
+                    <label for="floatingInput">Instituition Name</label>
+                </div>
+                <div class="form-floating">
+                    <input name="bachelor_year" type="text" class="form-control" id="floatingInput" placeholder="Year of passing" required>
+                    <label for="floatingInput">Year of passing</label>
+                </div>
+                <div class="form-floating">
+                    <input name="Masters_degree" type="text" class="form-control" id="floatingInput" placeholder="Master's Degree" required>
+                    <label for="floatingInput">Master's Degree</label>
+                </div>
+                <div class="form-floating">
+                    <input name="Masters_instituition" type="text" class="form-control" id="floatingInput" placeholder="Instituition Name" required>
+                    <label for="floatingInput">Instituition Name</label>
+                </div>
+                <div class="form-floating">
+                    <input name="Masters_year" type="text" class="form-control" id="floatingInput" placeholder="Year of passing" required>
+                    <label for="floatingInput">Year of passing</label>
+                </div>
+                <div class="form-floating">
+                    <input name="Phd" type="text" class="form-control" id="floatingInput" placeholder="Phd" required>
+                    <label for="floatingInput">Phd</label>
+                </div>
+                <div class="form-floating">
+                    <input name="Phd_instituition" type="text" class="form-control" id="floatingInput" placeholder="Instituition Name" required>
+                    <label for="floatingInput">Instituition Name</label>
+                </div>
+                <div class="form-floating">
+                    <input name="Phd_year" type="text" class="form-control" id="floatingInput" placeholder="Year of passing" required>
+                    <label for="floatingInput">Year of passing</label>
+                </div><br>
+                <input type="submit" class="btn btn-primary" value="Register"><br><br>
+            </form>
+        {% endif %}
+    </div>
+</body>
+{% endblock %}
+
+
